@@ -1,21 +1,27 @@
 #include <stdio.h>
-#include <math.h>
 
 int main() {
-    double PI = 4.0;    
-    double term;        
-    double currentPI = 0.0; 
-    int x = 0;          
-    int sign = -1;      
-    
-    for (x = 1; fabs(PI - currentPI) > 0.000005; x++) {
-        term = 4.0 / (2.0 * x + 1.0);  
-        currentPI += sign * term;     
-        sign *= -1;                   
+    double pi = 4.0;
+    int flag = 1;
+    long ipi = 0;
+    int x = 0;
+
+    for (int i = 3; i < 1000000; i += 2) {
+        if (flag == 0) {
+            pi += (4.0 / i);
+        } else {
+            pi -= (4.0 / i);
+        }
+
+        flag = 1 - flag;  // 切換 flag 的值，0 與 1 之間切換
+
+        ipi = pi * 100000;
+        if (ipi == 314159) {
+            x = i;
+            break;
+        }
     }
 
-    printf("Minimum iterations to reach 3.14159 precision: %d\n", x);
-    printf("Calculated PI: %.5f\n", currentPI);
-
+    printf("%d, %.5f\n", x, pi);
     return 0;
 }
